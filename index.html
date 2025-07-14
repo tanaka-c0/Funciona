@@ -1,129 +1,198 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Aceita casar comigo?</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aceita casar comigo?</title>
 
-    <style>
-        body {
-            background-color: red;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        .painel {
-            background-color: white;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 20px;
-            text-align: center;
-            padding: 30px 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        }
+    body {
+      background: linear-gradient(to bottom, #ffc0cb, #ff69b4);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      overflow: hidden;
+    }
 
-        .painel h1 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-        }
+    .painel {
+      background-color: white;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 20px;
+      text-align: center;
+      padding: 30px 20px;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+      position: relative;
+      z-index: 2;
+    }
 
-        .painel h2 {
-            font-size: 1.1em;
-            margin: 15px 0;
-        }
+    .painel h1 {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      color: #d1005d;
+    }
 
-        .painel img {
-            width: 100%;
-            max-width: 250px;
-            height: auto;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
+    .painel h2 {
+      font-size: 1.1em;
+      margin: 15px 0;
+      color: #444;
+    }
 
-        .botoes {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            position: relative;
-        }
+    .painel img {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+    }
 
-        .botao-container {
-            position: relative;
-            width: 160px;
-            height: 45px;
-        }
+    .botoes {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      position: relative;
+    }
 
-        #sim, #nao {
-            height: 45px;
-            width: 70px;
-            background-color: red;
-            border: 2px solid white;
-            border-radius: 10px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    .botao-container {
+      position: relative;
+      width: 160px;
+      height: 45px;
+    }
 
-        #sim {
-            position: absolute;
-            left: 0;
-            z-index: 1;
-        }
+    #sim, #nao {
+      height: 45px;
+      width: 70px;
+      background-color: #ff2e63;
+      border: 2px solid white;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      position: absolute;
+    }
 
-        #nao {
-            position: absolute;
-            left: 90px;
-            z-index: 2;
-        }
+    #sim {
+      left: 0;
+      z-index: 1;
+    }
 
-        @media (max-height: 600px) {
-            body {
-                align-items: flex-start;
-                padding-top: 20px;
-                height: auto;
-            }
-        }
-    </style>
+    #nao {
+      left: 90px;
+      z-index: 2;
+    }
+
+    /* corações animados */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      color: #ff69b4;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @media (max-height: 600px) {
+      body {
+        align-items: flex-start;
+        padding-top: 20px;
+        height: auto;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="painel">
-        <h1>Aceita Casar Comigo?</h1>
-        <img src="nd5_2091m.jpg" alt="foto do casal" />
-        <h2>Pense bem, isso vai definir seu futuro</h2>
+  <!-- corações flutuando -->
+  <div class="hearts" id="hearts-container"></div>
 
-        <div class="botoes">
-            <div class="botao-container">
-                <button id="sim" onclick="deucerto()">Sim!</button>
-                <button onmouseover="fuja()" id="nao">Não!</button>
-            </div>
-        </div>
+  <div class="painel">
+    <h1>Aceita Casar Comigo?</h1>
+    <img src="nd5_2091m.jpg" alt="foto do casal" />
+    <h2>Pense bem, isso vai definir seu futuro</h2>
+
+    <div class="botoes">
+      <div class="botao-container">
+        <button id="sim" onclick="deucerto()">Sim!</button>
+        <button id="nao" onmouseover="fuja()">Não!</button>
+      </div>
     </div>
+  </div>
 
-    <script>
-        function fuja() {
-            var botaoNao = document.getElementById("nao");
+  <script>
+    const botaoNao = document.getElementById("nao");
+    let jaFugiu = false;
 
-            var larguraJanela = window.innerWidth;
-            var alturaJanela = window.innerHeight;
-            var maxX = larguraJanela - botaoNao.offsetWidth;
-            var maxY = alturaJanela - botaoNao.offsetHeight;
-            var aleatorioX = Math.floor(Math.random() * maxX);
-            var aleatorioY = Math.floor(Math.random() * maxY);
+    function fuja() {
+      if (!jaFugiu) {
+        // torna o botão fixo na tela para poder fugir de verdade
+        botaoNao.style.position = "fixed";
+        jaFugiu = true;
+      }
 
-            botaoNao.style.left = aleatorioX + "px";
-            botaoNao.style.top = aleatorioY + "px";
-        }
+      const larguraJanela = window.innerWidth;
+      const alturaJanela = window.innerHeight;
+      const maxX = larguraJanela - botaoNao.offsetWidth;
+      const maxY = alturaJanela - botaoNao.offsetHeight;
 
-        function deucerto() {
-            alert("Deu certo :) Agora é só marcar a data!");
-        }
-    </script>
+      const aleatorioX = Math.floor(Math.random() * maxX);
+      const aleatorioY = Math.floor(Math.random() * maxY);
+
+      botaoNao.style.left = aleatorioX + "px";
+      botaoNao.style.top = aleatorioY + "px";
+    }
+
+    function deucerto() {
+      alert("Deu certo :) Agora é só marcar a data!");
+    }
+
+    // corações flutuando
+    const heartsContainer = document.getElementById("hearts-container");
+    const emojis = ['❤️', '💖', '💕', '💘', '❣️'];
+
+    function criarCoracao() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    setInterval(criarCoracao, 500);
+  </script>
 
 </body>
 </html>
