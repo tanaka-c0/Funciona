@@ -1,69 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Aceita casar comigo?</title>
 
     <style>
-        body{
+        body {
             background-color: red;
-        }
-
-        .painel{
-            margin: auto;
-            background-color: white;           
-            width: 500px;
-            height: 500px;
-            border-radius: 20px;
-            text-align: center;
-            padding-top: 50px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
-        #sim{
-            height: 40px;
-            width: 60px;
+
+        .painel {
+            background-color: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 20px;
+            text-align: center;
+            padding: 30px 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .painel h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .painel h2 {
+            font-size: 1.1em;
+            margin: 15px 0;
+        }
+
+        .painel img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .botao-container {
+            position: relative;
+            width: 160px;
+            height: 45px;
+        }
+
+        #sim, #nao {
+            height: 45px;
+            width: 70px;
             background-color: red;
             border: 2px solid white;
             border-radius: 10px;
             color: white;
-            margin-left: -50px;
+            font-size: 16px;
             cursor: pointer;
         }
-        #nao{
+
+        #sim {
             position: absolute;
-            height: 40px;
-            width: 60px;
-            background-color: red;
-            border: 2px solid white;
-            border-radius: 10px;
-            color: white;
-            margin-left: 10px;
-            cursor: pointer;
+            left: 0;
+            z-index: 1;
         }
 
-    </style>
+        #nao {
+            position: absolute;
+            left: 90px;
+            z-index: 2;
+        }
 
+        @media (max-height: 600px) {
+            body {
+                align-items: flex-start;
+                padding-top: 20px;
+                height: auto;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+
     <div class="painel">
-
-        <h1> Aceita Casar Comigo?</h1>
-
-        <img src="nd5_2091m.jpg" alt="nós dois" width="100">
-
+        <h1>Aceita Casar Comigo?</h1>
+        <img src="nd5_2091m.jpg" alt="foto do casal" />
         <h2>Pense bem, isso vai definir seu futuro</h2>
 
-        <button id="sim" onclick="deucerto()">Sim!</button>
-        <button onmouseover="fuja()" id="nao">Não!</button>
-
-
+        <div class="botoes">
+            <div class="botao-container">
+                <button id="sim" onclick="deucerto()">Sim!</button>
+                <button onmouseover="fuja()" id="nao">Não!</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        function fuja(){
-            var botaoNao = document.getElementById("nao")
+        function fuja() {
+            var botaoNao = document.getElementById("nao");
 
             var larguraJanela = window.innerWidth;
             var alturaJanela = window.innerHeight;
@@ -74,15 +118,12 @@
 
             botaoNao.style.left = aleatorioX + "px";
             botaoNao.style.top = aleatorioY + "px";
-            
         }
 
-        function deucerto(){
-            alert("Deu certo :)")
-
+        function deucerto() {
+            alert("Deu certo :) Agora é só marcar a data!");
         }
     </script>
-
 
 </body>
 </html>
